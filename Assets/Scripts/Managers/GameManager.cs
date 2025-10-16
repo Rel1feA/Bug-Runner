@@ -5,10 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
+    public int levelIndex;
+
     private void Start()
     {
-        DontDestroyOnLoad(gameObject);
-        LoadSceneManager.Instance.LoadSceneAsync(0);
+        LoadSceneManager.Instance.LoadSceneAsync(levelIndex);
     }
 
     private void Update()

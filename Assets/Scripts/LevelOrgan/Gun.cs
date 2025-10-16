@@ -18,18 +18,34 @@ public class Gun : MonoBehaviour
     [SerializeField]
     private BulletType bulletType;
     [SerializeField]
-    private Bullet bullet;
+    private float offset;
+
+    private float timer;
+
+    private void Start()
+    {
+        timer = 0;
+    }
 
     private void Update()
     {
-        InvokeRepeating("Shoot", shootTime, shootTime);
+        timer += Time.deltaTime;
+        if(timer > shootTime )
+        {
+            Shoot();
+            timer= 0;
+        }
     }
 
     public void Shoot()
     {
-        Bullet b = Instantiate(bullet);
-        Vector2 dir = new Vector2(transform.localScale.x, 0).normalized;
-        b.SetSpeed(bulletSpeed);
-        b.SetDir(dir);
+        PoolManager.Instance.GetObj("Bullet", (obj) =>
+        {
+            Bullet b=obj.GetComponent<Bullet>();
+            Vector2 dir = new Vector2(transform.localScale.x, 0).normalized;
+            b.transform.position = transform.position + (Vector3)dir * offset;
+            b.SetSpeed(bulletSpeed);
+            b.SetDir(dir);
+        });
     }
 }

@@ -7,11 +7,6 @@ public class MonoController : Singleton<MonoController>
 {
     public event UnityAction updateEvent;
 
-    private void Start()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
-
     private void Update()
     {
         if(updateEvent != null)

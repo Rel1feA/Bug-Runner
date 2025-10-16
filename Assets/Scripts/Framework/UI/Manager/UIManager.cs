@@ -27,8 +27,12 @@ public class UIManager : Singleton<UIManager>
     protected override void Awake()
     {
         base.Awake();
+    }
+
+    private void Start()
+    {
         //在预设体加载canvas
-        GameObject obj= ResourcesManager.Instance.Load<GameObject>("UI/Canvas");
+        GameObject obj = ResourcesManager.Instance.Load<GameObject>("UI/Canvas");
         canvas = obj.transform as RectTransform;
         DontDestroyOnLoad(obj);
 
@@ -40,12 +44,7 @@ public class UIManager : Singleton<UIManager>
 
         //在预设体加载eventsystem
         obj = ResourcesManager.Instance.Load<GameObject>("UI/EventSystem");
-        DontDestroyOnLoad (obj);
-    }
-
-    private void Start()
-    {
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(obj);
     }
 
     /// <summary>

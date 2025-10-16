@@ -21,7 +21,7 @@ public class Bullet : MonoBehaviour
 
     public void Move()
     {
-        rb2d.MovePosition(dir * speed * Time.fixedDeltaTime);
+        rb2d.MovePosition(rb2d.position+dir * speed * Time.fixedDeltaTime);
     }
 
     public void SetSpeed(float speed)
@@ -32,5 +32,17 @@ public class Bullet : MonoBehaviour
     public void SetDir(Vector2 dir)
     {
         this.dir = dir;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Player"))
+        {
+            EventCenter.Instance.EventTrigger("BulletHitPlayer");
+        }
+        if(collision.CompareTag("DeadArea"))
+        {
+            PoolManager.Instance.PushObj("Bullet",gameObject);
+        }
     }
 }
