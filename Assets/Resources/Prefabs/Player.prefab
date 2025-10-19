@@ -170,6 +170,7 @@ MonoBehaviour:
   groundBoxSize: {x: 0.9, y: 0.3}
   groundBoxOffset: {x: 0, y: -0.95}
   isCheckGround: 1
+  maxDownSpeed: -25
 --- !u!114 &1445985403073604331
 MonoBehaviour:
   m_ObjectHideFlags: 0

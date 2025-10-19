@@ -9,7 +9,7 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
-        LoadSceneManager.Instance.LoadSceneAsync(levelIndex);
+        //LoadSceneManager.Instance.LoadSceneAsync(levelIndex);
     }
 
     private void Update()

@@ -21,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 groundBoxOffset;
     [SerializeField]
     private bool isCheckGround;
+    [SerializeField]
+    private float maxDownSpeed;
 
     private Rigidbody2D rb2d;
     private float inputX;
@@ -48,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Jump();
         }
+        ClampRBDownSpeed();
     }
 
     public void Move()
@@ -95,6 +98,14 @@ public class PlayerMovement : MonoBehaviour
         {
             jumpTimer = 0;
             isPressJumpKey = false;
+        }
+    }
+
+    public void ClampRBDownSpeed()
+    {
+        if(rb2d.velocity.y<maxDownSpeed)
+        {
+            rb2d.velocity = new Vector2(rb2d.velocity.x, maxDownSpeed);
         }
     }
 
