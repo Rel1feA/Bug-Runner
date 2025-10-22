@@ -6432,7 +6432,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7839879555167540425, guid: 6301d7b7cbdd4694faf9d8a270c603f9, type: 3}
       propertyPath: maxDownSpeed
-      value: -21
+      value: -20.5
       objectReference: {fileID: 0}
     - target: {fileID: 7839879555167540425, guid: 6301d7b7cbdd4694faf9d8a270c603f9, type: 3}
       propertyPath: isCheckGround

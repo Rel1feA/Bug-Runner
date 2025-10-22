@@ -18,7 +18,7 @@ public class Gun : MonoBehaviour
     [SerializeField]
     private BulletType bulletType;
     [SerializeField]
-    private float offset;
+    private float bulletOffset;
 
     private float timer;
 
@@ -39,11 +39,25 @@ public class Gun : MonoBehaviour
 
     public void Shoot()
     {
-        PoolManager.Instance.GetObj("Bullet", (obj) =>
+        string bulletName;
+        switch (bulletType)
+        {
+            case BulletType.Normal:
+                bulletName = "Bullet";
+                break;
+            case BulletType.Bug:
+                bulletName = "FakeBullet";
+                break;
+            default:
+                bulletName=string.Empty;
+                break;
+        }
+
+        PoolManager.Instance.GetObj(bulletName, (obj) =>
         {
             Bullet b=obj.GetComponent<Bullet>();
             Vector2 dir = new Vector2(transform.localScale.x, 0).normalized;
-            b.transform.position = transform.position + (Vector3)dir * offset;
+            b.transform.position = transform.position + (Vector3)dir * bulletOffset;
             b.SetSpeed(bulletSpeed);
             b.SetDir(dir);
         });

@@ -68,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
     public bool CheckGround()
     {
         if (!isCheckGround) return true;
-       return Physics2D.OverlapBox((Vector2)transform.position + groundBoxOffset, groundBoxSize, 0, LayerMask.GetMask("Ground"));
+       return Physics2D.OverlapBox((Vector2)transform.position + groundBoxOffset, groundBoxSize, 0, LayerMask.GetMask("Ground","FakeBullet"));
     }
 
     public void ChangeGravityScale()

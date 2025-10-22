@@ -5,6 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class Bullet : MonoBehaviour
 {
+    [SerializeField]
+    private bool isFake;
+
     private float speed;
     private Vector2 dir;
     private Rigidbody2D rb2d;
@@ -36,13 +39,14 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player"))
+        if (collision.CompareTag("DeadArea"))
+        {
+            PoolManager.Instance.PushObj("Bullet", gameObject);
+        }
+        if (isFake) return;
+        if (collision.CompareTag("Player"))
         {
             EventCenter.Instance.EventTrigger("BulletHitPlayer");
-        }
-        if(collision.CompareTag("DeadArea"))
-        {
-            PoolManager.Instance.PushObj("Bullet",gameObject);
         }
     }
 }

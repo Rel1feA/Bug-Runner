@@ -17,6 +17,11 @@ public class FakeWall : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
+    private void Start()
+    {
+        timer = 0;
+    }
+
     private void Update()
     {
         timer += Time.deltaTime;

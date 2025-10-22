@@ -19,13 +19,14 @@ public class Player : MonoBehaviour
     public void Dead()
     {
         Debug.Log("Dead");
+        GameManager.Instance.ReStartLevel();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("DeadArea"))
         {
-            GameManager.Instance.ReStartLevel();
+            Dead();
         }
     }
 }
