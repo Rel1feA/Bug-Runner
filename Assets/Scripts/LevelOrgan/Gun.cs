@@ -12,19 +12,21 @@ public enum BulletType
 public class Gun : MonoBehaviour
 {
     [SerializeField]
-    private float shootTime;//Éä»÷¼ä¸ôÊ±¼ä
+    private float shootTime;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
     [SerializeField]
     private float bulletSpeed;
     [SerializeField]
     private BulletType bulletType;
     [SerializeField]
     private float bulletOffset;
+    [SerializeField]
+    private float startShootTime;
 
     private float timer;
 
     private void Start()
     {
-        timer = 0;
+        timer = startShootTime;
     }
 
     private void Update()

@@ -5,11 +5,13 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class End : MonoBehaviour
 {
+    public int index;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Player"))
         {
-            LoadSceneManager.Instance.LoadNextScene(true);
+            GameManager.Instance.LoadLevel(index);
         }
     }
 }

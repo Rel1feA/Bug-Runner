@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class FakeWall : MonoBehaviour
 {
@@ -9,12 +10,12 @@ public class FakeWall : MonoBehaviour
     [SerializeField]
     private float hideDuration;//精灵消失持续时间
 
-    private SpriteRenderer spriteRenderer;
+    private TilemapRenderer tilemapRenderer ;
     private float timer;
 
     private void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        tilemapRenderer = GetComponent<TilemapRenderer>();
     }
 
     private void Start()
@@ -25,13 +26,13 @@ public class FakeWall : MonoBehaviour
     private void Update()
     {
         timer += Time.deltaTime;
-        if (timer >=hideInterval&&spriteRenderer.enabled)
+        if (timer >=hideInterval&&tilemapRenderer.enabled)
         {
-            spriteRenderer.enabled = false;
+            tilemapRenderer.enabled = false;
         }
-        if(timer>hideDuration+hideInterval&&!spriteRenderer.enabled)
+        if(timer>hideDuration+hideInterval&&!tilemapRenderer.enabled)
         {
-            spriteRenderer.enabled = true;
+            tilemapRenderer.enabled = true;
             timer = 0;
         }
     }

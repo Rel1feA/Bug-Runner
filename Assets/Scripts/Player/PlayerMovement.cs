@@ -28,27 +28,43 @@ public class PlayerMovement : MonoBehaviour
     private float inputX;
     private float jumpTimer;
     private bool isPressJumpKey;
+    private Animator animator;
+    public string currentAnim;
 
     private void Awake()
     {
         rb2d= GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         rb2d.gravityScale = normalGravityScale;
         isPressJumpKey = false;
+        currentAnim = "Idle";
     }
 
     private void Update()
     {
         inputX = Input.GetAxis("Horizontal");
         UpdateJumpInput();
+        FilpPlayer();
+        SetAnim();
     }
 
     private void FixedUpdate()
     {
         Move();
         ChangeGravityScale();
-        if(isPressJumpKey&&CheckGround())
+        if(isPressJumpKey)
         {
-            Jump();
+            if(isCheckGround)
+            {
+                if(CheckGround())
+                {
+                    Jump();
+                }
+            }
+            else
+            {
+                Jump();
+            }
         }
         ClampRBDownSpeed();
     }
@@ -67,7 +83,6 @@ public class PlayerMovement : MonoBehaviour
 
     public bool CheckGround()
     {
-        if (!isCheckGround) return true;
        return Physics2D.OverlapBox((Vector2)transform.position + groundBoxOffset, groundBoxSize, 0, LayerMask.GetMask("Ground","FakeBullet"));
     }
 
@@ -106,6 +121,57 @@ public class PlayerMovement : MonoBehaviour
         if(rb2d.velocity.y<maxDownSpeed)
         {
             rb2d.velocity = new Vector2(rb2d.velocity.x, maxDownSpeed);
+        }
+    }
+
+    public void FilpPlayer()
+    {
+        if(inputX>0)
+        {
+            transform.localScale = Vector3.one;
+        }
+        else if(inputX<0)
+        {
+            transform.localScale = new Vector3(-1,1,1);
+        }
+    }
+
+    public void SetAnim()
+    {
+        if(CheckGround())
+        {
+            if(currentAnim=="Down")
+            {
+                ChangeAnim("OtherLayer.ToGround");
+            }
+            else if (rb2d.velocity == Vector2.zero && inputX == 0)
+            {
+                ChangeAnim("Idle");
+            }
+            else if (rb2d.velocity.y == 0)
+            {
+                ChangeAnim("Run");
+            }
+        }
+        else
+        {
+            if(rb2d.velocity.y>0)
+            {
+                ChangeAnim("Jump");
+            }
+            else
+            {
+                ChangeAnim("Down");
+            }
+        }
+    }
+
+    public void ChangeAnim(string animName,float crossFade=0)
+    {
+        if(animName!=currentAnim)
+        {
+            currentAnim = animName;
+            animator.CrossFade(animName, crossFade);
         }
     }
 
